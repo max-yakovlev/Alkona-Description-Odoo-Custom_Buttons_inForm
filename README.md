@@ -23,8 +23,8 @@ class TestModel(models.Model):
                   'type': 'ir.actions.act_window',
                   'view_mode': 'form',             
                   'view_type': 'form',            
-                  'res_model': 'test.model.wizard',
-                  'target': 'new',   # new - говорит и том, что нужно вызвать новое окно "модальное". Если опустить данный параметр откроется полноценная форма привязанная к модели 
+                  'res_model': 'test.model.wizard',  # временная модель/форма которую мы вызываем
+                  'target': 'new',                   # new - говорит и том, что нужно вызвать новое окно "модальное". Если опустить данный параметр откроется полноценная форма привязанная к модели 
                }
 ```
 Кнопка в форме определяется просто:    
@@ -76,14 +76,16 @@ class TestModel(models.Model):
   from odoo import models, fields, api
   
     class TestMessag(models.TransientModel): # Указываем, что модель временная
-    _name = 'test-model-wizard'
+    _name = 'test_model_wizard'
 
     message = fields.Char(string='Сообщение', readonly='true', default='Любая строка по умолчанию')
     param1 = fields.Selection([('param1','Param1'), # Выпадающий список, где первый параметр = значение, второй = отображаемое имя параметра в UI
                                ('param2','Param2'),
                                ('param3','Param3')])
-    # Метод который будет вызываться из модального окна/формы и передавать параметры для целевого окна/формы
-    # Предположим, что мы создали целевую модель с формой и ей нужно передать некие параметры                                    
+  
+    # Предположим, что мы создали целевую модель с формой и ей нужно передать некие параметры
+  
+    # Метод который будет вызываться из модального окна/формы и передавать параметры для целевого окна/формы  
     def do_job(self):
         # Создаем словарь со значениями
         vals = {
@@ -96,12 +98,12 @@ class TestModel(models.Model):
           # Далее мы можем обратиться к переменной этой записи и получить ее Id, что и делаем в return вызвывая форму/модель с этой записью
         target_model_rec = self.env['имя целевой модели'].create(vals)
         return{
-              'name': 'Name',                  # Произвольное имя
-              'type': 'ir.actions.act_window',
-              'view_mode': form,               # Говорим, что это форма
-              'res_model': 'target_model',     # модель целевой формы
-              'res_id': 'target_model.rec.id', # сообщаем, что хотим получить форму с данными по этому Id 
-            }
+                  'name': 'Name',                  # Произвольное имя
+                  'type': 'ir.actions.act_window',
+                  'view_mode': form,               # Говорим, что это форма
+                  'res_model': 'target_model',     # модель целевой формы
+                  'res_id': 'target_model.rec.id', # сообщаем, что хотим получить форму с данными по этому Id 
+             }
   ```
   **Преставление/View**
   
@@ -111,11 +113,11 @@ class TestModel(models.Model):
    <data>
       <record model="ir.ui.view" id="get_modal_test">
          <field name="name">get.modal.test</field>
-         <field name="model">test-model-wizard</field>
+         <field name="model">test_model_wizard</field>
          <field name="type">form</field>
          <field name="arch" type="xml">
             <form>               
-               <group colspan="4" col="4">
+               <group>
                   <field name="message" />
                   <field name="param1" /> 
                </group>
