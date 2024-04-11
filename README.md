@@ -97,13 +97,13 @@ class TestModel(models.Model):
           # И помещаем созданную запись в переменную target_model_rec. Id этой записи создается системой
           # Далее мы можем обратиться к переменной этой записи и получить ее Id, что и делаем в return вызвывая форму/модель с этой записью
         target_model_rec = self.env['имя целевой модели'].create(vals)
-        return{
+        return {
                   'name': 'Name',                  # Произвольное имя
                   'type': 'ir.actions.act_window',
                   'view_mode': form,               # Говорим, что это форма
                   'res_model': 'target_model',     # модель целевой формы
                   'res_id': 'target_model.rec.id', # сообщаем, что хотим получить форму с данными по этому Id 
-             }
+              }
   ```
   **Преставление/View**
   
