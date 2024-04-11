@@ -131,3 +131,9 @@ class TestModel(models.Model):
    </data>
   </odoo>
   ```
+
+  Примерный итоговый результат:
+  
+  ![image](https://github.com/max-yakovlev/Alkona-Description-Odoo-Custom_Buttons_inForm/assets/165757267/a4a95489-9d67-4533-b174-d88a09abf478)
+
+
