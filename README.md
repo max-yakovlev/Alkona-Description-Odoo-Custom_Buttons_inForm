@@ -62,7 +62,7 @@ class TestModel(models.Model):
   ```xml
   <odoo>
      <menuitem name="Refference/Button name" id="test_menu_root" groups="tfoms-base.group_tfoms_user" />        
-        <menuitem name="Refference/Button name" id="test_sub_menu" action="test_model_action" parent="test_menu_root"/>
+     <menuitem name="Refference/Button name" id="test_sub_menu" action="test_model_action" parent="test_menu_root"/>
   </odoo>
   ```
   
